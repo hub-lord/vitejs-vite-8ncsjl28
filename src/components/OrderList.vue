@@ -12,11 +12,11 @@
                         <a-button @click="takeToWork(record.id)" type="primary">Взять в работу</a-button>
                     </a-tooltip>
                     <a-tooltip v-if="record.user_take === getLogin" title="Отказаться">
-                        <a-button @click="refuse(record.id)" dashed type="primary"
-                            size="large">Отказаться</a-button>
+                        <a-button @click="refuse(record.id)" dashed type="primary" size="large">Отказаться</a-button>
                     </a-tooltip>
                     <a-tooltip v-if="record.user_take === getLogin" title="Дополнить">
-                        <a-button type="dashed" size="large" @click="open=true; currentId=record.id; value = record.description">Дополнить</a-button>
+                        <a-button type="dashed" size="large"
+                            @click="open = true; currentId = record.id; value = record.description">Дополнить</a-button>
                     </a-tooltip>
                     <a-tooltip v-if="record.user_take === getLogin" title="Закрыть">
                         <a-button @click="close(record.id)" danger type="primary" size="large">Выполнено</a-button>
@@ -25,9 +25,9 @@
             </template>
         </template>
     </a-table>
-    <a-modal v-model:open="open" :title="room" @ok="saveDescription(currentId, value);open=false">
-      <p>Дополните замекти</p>
-      <a-textarea v-model:value="value" placeholder="Заполните" :rows="4" />
+    <a-modal v-model:open="open" :title="room" @ok="saveDescription(currentId, value); open = false">
+        <p>Дополните замекти</p>
+        <a-textarea v-model:value="value" placeholder="Заполните" :rows="4" />
     </a-modal>
 </template>
 <script setup lang="ts">
@@ -38,11 +38,11 @@ import { ref } from 'vue';
 import { watch } from 'vue';
 
 const { getItems, getLogin } = storeToRefs(useMainStore())
-const { fetchOrders, takeToWork, close, saveDescription,refuse } = useMainStore()
+const { fetchOrders, takeToWork, close, saveDescription, refuse } = useMainStore()
 const value = ref('')
 let open = ref(false)
-let currentId =ref()
-let room =ref('')
+let currentId = ref()
+let room = ref('')
 function getStateColor(state: string | null) {
     switch (state) {
         case "open": return "green";
@@ -52,7 +52,7 @@ function getStateColor(state: string | null) {
     }
 }
 
-watch(value, ()=>console.log(value.value));
+watch(value, () => console.log(value.value));
 
 const columns = ref([
     {
