@@ -14,7 +14,7 @@ export const useCounterStore = defineStore('counter', {
         async fetchOrders() {
             let { data, error } = await supabase
                 .from('order_room')
-                .select('id')
+                .select('*')
             if (error) {
                 this.error = error
             }

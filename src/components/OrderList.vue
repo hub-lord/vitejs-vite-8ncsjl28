@@ -1,31 +1,54 @@
-<template>    
-  <a-table :dataSource="getItems" :columns="columns" />
+<template>
+    <a-table :dataSource="getItems" :columns="columns">
+        <template #bodyCell="{ column }">
+            <template v-if="column.key === 'action'">
+                <a-tooltip title="Взять в работу">
+                    <a-button type="primary" shape="circle" :icon="h(AimOutlined)" />
+                </a-tooltip>
+            </template>
+        </template>
+    </a-table>
 </template>
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useCounterStore } from '../store/main'
 import { onMounted } from 'vue';
-import { ref } from 'vue';
+import { ref, h } from 'vue';
+import { AimOutlined } from '@ant-design/icons-vue';
 const { getItems } = storeToRefs(useCounterStore())
 const { fetchOrders } = useCounterStore()
 
-const columns = ref( [
-          {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-          },
-          {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
-          },
-          {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
-          },
-        ])
+const columns = ref([
+    {
+        title: '#',
+        dataIndex: 'num_order',
+        key: 'num_order',
+    },
+    {
+        title: 'Логин',
+        dataIndex: 'login',
+        key: 'login',
+    },
+    {
+        title: 'Текст',
+        dataIndex: 'message',
+        key: 'message',
+    },
+    {
+        title: 'Комната',
+        dataIndex: 'room',
+        key: 'room',
+    },
+    {
+        title: 'Заметки',
+        dataIndex: 'description',
+        key: 'description',
+    },
+    {
+        title: 'Action',
+        key: 'action',
+    }
+])
 
 onMounted(() => {
     fetchOrders()
