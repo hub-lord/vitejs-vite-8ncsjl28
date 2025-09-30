@@ -10,7 +10,7 @@ export const useMainStore = defineStore('counter', {
     },
     getters: {
         getItems: (s) => s.items,
-        getLogin: (s) => s.login
+        getLogin: (s) => '777'
     },
     actions: {
         async login(userName) {
@@ -29,15 +29,18 @@ export const useMainStore = defineStore('counter', {
             }
         },
         async close(id: string) {
-            const { data: select } = await supabase
+            const { data } = await supabase
                 .from('order_room')
-                .select('*')
+                .update({ state: 'close' })
                 .eq('id', id)
-
-            if (select[0] && select[0].user_take) {
-                alert(select[0].user_take)
-                return;
+                .select()
+            if (data) {
+                const itemToUpdate = this.items.find(item => item.id === data[0].id);
+                if (itemToUpdate) {
+                    itemToUpdate.state = data[0].state;
+                }
             }
+
         },
         async takeToWork(id: string) {
             const { data: select } = await supabase
