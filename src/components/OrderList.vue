@@ -60,7 +60,7 @@ onMounted(() => {
     console.log(miniApp);
     const userData = miniApp.initDataUnsafe;
     if (userData && userData.user) {
-        alert(userData.user.id)
+        alert(userData.user.username)
     }
     fetchOrders()
 })
