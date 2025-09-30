@@ -12,7 +12,11 @@ const miniApp = useMiniApp()
 onMounted(() => {
   const userData = miniApp.initDataUnsafe;
   if (userData && userData.user) {
-    login(userData.user)
+    console.log(userData.user);    
+    login(userData.user?.username)
+  }
+  else{
+    login('test')
   }
 })
 </script>
