@@ -5,16 +5,25 @@ export const useMainStore = defineStore('counter', {
         return {
             login: '',
             items: [],
-            error: {}
+            error: {},
+            isAuth: false
         }
     },
     getters: {
         getItems: (s) => s.items,
-        getLogin: (s) => s.login ?? '777'
+        getLogin: (s) => s.login ?? '777',
+        getAuth: (s)=> s.isAuth
     },
     actions: {
         async login(userName) {
             this.login = userName
+            const { data } = await supabase
+            .from('admins')
+            .select()
+            .eq('login', '777')
+            if(data[0]){
+                this.isAuth =  true
+            }
         },
         async fetchOrders() {
             let { data, error } = await supabase
