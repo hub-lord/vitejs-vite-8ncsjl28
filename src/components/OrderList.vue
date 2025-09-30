@@ -58,7 +58,7 @@ const columns = ref([
 
 onMounted(() => {
     console.log(miniApp);
-    alert(miniApp)    
+    alert(miniApp.initDataUnsafe)    
     fetchOrders()
 })
 
