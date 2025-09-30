@@ -17,7 +17,8 @@ import { ref, h } from 'vue';
 import { AimOutlined } from '@ant-design/icons-vue';
 const { getItems } = storeToRefs(useCounterStore())
 const { fetchOrders } = useCounterStore()
-
+import { useMiniApp } from 'vue-tg'
+const miniApp = useMiniApp()
 const columns = ref([
     {
         title: '#',
@@ -45,12 +46,19 @@ const columns = ref([
         key: 'description',
     },
     {
+        title: 'Статус',
+        dataIndex: 'state',
+        key: 'state',
+    },
+    {
         title: 'Action',
         key: 'action',
     }
 ])
 
 onMounted(() => {
+    console.log(miniApp);
+    alert(miniApp)    
     fetchOrders()
 })
 
