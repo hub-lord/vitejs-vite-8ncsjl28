@@ -25,9 +25,9 @@
             </template>
         </template>
     </a-table>
-    <a-modal v-model:open="open" :title="room" @ok="open=true">
+    <a-modal v-model:open="open" :title="room" @ok="saveDescription(currentId, value);open=false">
       <p>Дополните замекти</p>
-      <a-textarea v-model:value="value" placeholder="Basic usage" :rows="4" />
+      <a-textarea v-model:value="value" placeholder="Заполните" :rows="4" />
     </a-modal>
 </template>
 <script setup lang="ts">
@@ -39,7 +39,7 @@ import { AimOutlined } from '@ant-design/icons-vue';
 import { watch } from 'vue';
 
 const { getItems, getLogin } = storeToRefs(useMainStore())
-const { fetchOrders, takeToWork, close } = useMainStore()
+const { fetchOrders, takeToWork, close, saveDescription } = useMainStore()
 const value = ref('')
 let open = ref(false)
 let currentId =ref()
