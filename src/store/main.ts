@@ -20,6 +20,7 @@ export const useMainStore = defineStore('counter', {
             let { data, error } = await supabase
                 .from('order_room')
                 .select('*')
+                .order('num_order', { ascending: false })
             if (error) {
                 this.error = error
             }
@@ -27,8 +28,39 @@ export const useMainStore = defineStore('counter', {
                 this.items = data
             }
         },
-        async takeToWork(id: string) {
+        async close(id: string) {
+            const { data: select } = await supabase
+                .from('order_room')
+                .select('*')
+                .eq('id', id)
 
+            if (select[0] && select[0].user_take) {
+                alert(select[0].user_take)
+                return;
+            }
+        },
+        async takeToWork(id: string) {
+            const { data: select } = await supabase
+                .from('order_room')
+                .select('*')
+                .eq('id', id)
+
+            if (select[0] && select[0].user_take) {
+                alert(select[0].user_take)
+                return;
+            }
+
+            const { data } = await supabase
+                .from('order_room')
+                .update({ user_take: this.login })
+                .eq('id', id)
+                .select()
+            if (data) {
+                const itemToUpdate = this.items.find(item => item.id === data[0].id);
+                if (itemToUpdate) {
+                    itemToUpdate.user_take = data[0].user_take;
+                }
+            }
         }
     },
 })

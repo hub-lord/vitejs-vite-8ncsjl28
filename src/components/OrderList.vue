@@ -1,9 +1,9 @@
 <template>
     <a-table :dataSource="getItems" :columns="columns">
-        <template #bodyCell="{ column }">
+        <template #bodyCell="{ column, record  }">
             <template v-if="column.key === 'action'">
                 <a-tooltip title="Взять в работу">
-                    <a-button type="primary" shape="circle" :icon="h(AimOutlined)" />
+                    <a-button @click="takeToWork(record.id)" type="primary" shape="circle" :icon="h(AimOutlined)" />
                 </a-tooltip>
             </template>
         </template>
@@ -16,7 +16,7 @@ import { onMounted } from 'vue';
 import { ref, h } from 'vue';
 import { AimOutlined } from '@ant-design/icons-vue';
 const { getItems } = storeToRefs(useMainStore())
-const { fetchOrders } = useMainStore()
+const { fetchOrders, takeToWork } = useMainStore()
 
 const columns = ref([
     {
@@ -48,6 +48,11 @@ const columns = ref([
         title: 'Статус',
         dataIndex: 'state',
         key: 'state',
+    },
+    {
+        title: 'В работе',
+        dataIndex: 'user_take',
+        key: 'user_take',
     },
     {
         title: 'Action',
