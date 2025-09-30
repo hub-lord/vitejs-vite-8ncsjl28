@@ -9,14 +9,14 @@
             <template v-if="column.key === 'action' && record.state !== 'close'">
                 <div style="display: flex; gap: 5px; flex-direction: column;">
                     <a-tooltip v-if="!record.user_take" title="Взять в работу">
-                        <a-button @click="takeToWork(record.id)" type="primary" shape="circle" :icon="h(AimOutlined)" />
+                        <a-button @click="takeToWork(record.id)" type="primary">Взять в работу</a-button>
                     </a-tooltip>
                     <a-tooltip v-if="record.user_take === getLogin" title="Отказаться">
-                        <a-button @click="takeToWork(record.id)" dashed type="primary"
+                        <a-button @click="refuse(record.id)" dashed type="primary"
                             size="large">Отказаться</a-button>
                     </a-tooltip>
                     <a-tooltip v-if="record.user_take === getLogin" title="Дополнить">
-                        <a-button type="dashed" size="large" @click="open=true; currentId=record.id">Дополнить</a-button>
+                        <a-button type="dashed" size="large" @click="open=true; currentId=record.id; value = record.description">Дополнить</a-button>
                     </a-tooltip>
                     <a-tooltip v-if="record.user_take === getLogin" title="Закрыть">
                         <a-button @click="close(record.id)" danger type="primary" size="large">Выполнено</a-button>
@@ -34,12 +34,11 @@
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../store/main'
 import { onMounted } from 'vue';
-import { ref, h } from 'vue';
-import { AimOutlined } from '@ant-design/icons-vue';
+import { ref } from 'vue';
 import { watch } from 'vue';
 
 const { getItems, getLogin } = storeToRefs(useMainStore())
-const { fetchOrders, takeToWork, close, saveDescription } = useMainStore()
+const { fetchOrders, takeToWork, close, saveDescription,refuse } = useMainStore()
 const value = ref('')
 let open = ref(false)
 let currentId =ref()

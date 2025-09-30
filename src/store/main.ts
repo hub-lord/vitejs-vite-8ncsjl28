@@ -28,6 +28,19 @@ export const useMainStore = defineStore('counter', {
                 this.items = data
             }
         },
+        async refuse(id: string){
+            const { data } = await supabase
+            .from('order_room')
+            .update({ user_take: '' })
+            .eq('id', id)
+            .select()
+        if (data) {
+            const itemToUpdate = this.items.find(item => item.id === data[0].id);
+            if (itemToUpdate) {
+                itemToUpdate.user_take = data[0].user_take;
+            }
+        }
+        },
         async saveDescription(id: string, desc: string) {
             const { data } = await supabase
                 .from('order_room')
