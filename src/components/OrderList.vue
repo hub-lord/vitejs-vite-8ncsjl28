@@ -11,14 +11,13 @@
 </template>
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { useCounterStore } from '../store/main'
+import { useMainStore } from '../store/main'
 import { onMounted } from 'vue';
 import { ref, h } from 'vue';
 import { AimOutlined } from '@ant-design/icons-vue';
-const { getItems } = storeToRefs(useCounterStore())
-const { fetchOrders } = useCounterStore()
-import { useMiniApp } from 'vue-tg'
-const miniApp = useMiniApp()
+const { getItems } = storeToRefs(useMainStore())
+const { fetchOrders } = useMainStore()
+
 const columns = ref([
     {
         title: '#',
@@ -56,12 +55,7 @@ const columns = ref([
     }
 ])
 
-onMounted(() => {
-    console.log(miniApp);
-    const userData = miniApp.initDataUnsafe;
-    if (userData && userData.user) {
-        alert(userData.user.username)
-    }
+onMounted(() => {    
     fetchOrders()
 })
 
