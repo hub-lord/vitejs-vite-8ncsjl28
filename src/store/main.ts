@@ -16,6 +16,13 @@ export const useMainStore = defineStore('counter', {
     },
     actions: {
         async login(userName) {
+            const { } = await supabase
+                .from('logs')
+                .insert([
+                    { log: 'open login ' + userName },
+                ])
+                .select()
+
             this.login = userName
             const { data } = await supabase
                 .from('admins')
