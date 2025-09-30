@@ -58,7 +58,10 @@ const columns = ref([
 
 onMounted(() => {
     console.log(miniApp);
-    alert(miniApp.initDataUnsafe)    
+    const userData = miniApp.initDataUnsafe;
+    if (userData && userData.user) {
+        alert(userData.user.id)
+    }
     fetchOrders()
 })
 
