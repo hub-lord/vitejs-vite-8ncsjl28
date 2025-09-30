@@ -10,7 +10,7 @@ export const useMainStore = defineStore('counter', {
     },
     getters: {
         getItems: (s) => s.items,
-        getLogin: (s) =>  '777'
+        getLogin: (s) => s.login ?? '777'
     },
     actions: {
         async login(userName) {
@@ -28,12 +28,12 @@ export const useMainStore = defineStore('counter', {
                 this.items = data
             }
         },
-        async saveDescription(id:string, desc:string){
+        async saveDescription(id: string, desc: string) {
             const { data } = await supabase
-            .from('order_room')
-            .update({ description: desc })
-            .eq('id', id)
-            .select()
+                .from('order_room')
+                .update({ description: desc })
+                .eq('id', id)
+                .select()
             if (data) {
                 const itemToUpdate = this.items.find(item => item.id === data[0].id);
                 if (itemToUpdate) {
