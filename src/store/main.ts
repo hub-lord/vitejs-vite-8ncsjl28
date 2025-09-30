@@ -10,7 +10,7 @@ export const useMainStore = defineStore('counter', {
     },
     getters: {
         getItems: (s) => s.items,
-        getLogin: (s) => '777'
+        getLogin: (s) => s.login ?? '777'
     },
     actions: {
         async login(userName) {
