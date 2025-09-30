@@ -12,17 +12,17 @@ export const useMainStore = defineStore('counter', {
     getters: {
         getItems: (s) => s.items,
         getLogin: (s) => s.login ?? '777',
-        getAuth: (s)=> s.isAuth
+        getAuth: (s) => s.isAuth
     },
     actions: {
         async login(userName) {
             this.login = userName
             const { data } = await supabase
-            .from('admins')
-            .select()
-            .eq('login', '777')
-            if(data[0]){
-                this.isAuth =  true
+                .from('admins')
+                .select()
+                .eq('login', userName)
+            if (data[0]) {
+                this.isAuth = true
             }
         },
         async fetchOrders() {
@@ -37,18 +37,18 @@ export const useMainStore = defineStore('counter', {
                 this.items = data
             }
         },
-        async refuse(id: string){
+        async refuse(id: string) {
             const { data } = await supabase
-            .from('order_room')
-            .update({ user_take: '' })
-            .eq('id', id)
-            .select()
-        if (data) {
-            const itemToUpdate = this.items.find(item => item.id === data[0].id);
-            if (itemToUpdate) {
-                itemToUpdate.user_take = data[0].user_take;
+                .from('order_room')
+                .update({ user_take: '' })
+                .eq('id', id)
+                .select()
+            if (data) {
+                const itemToUpdate = this.items.find(item => item.id === data[0].id);
+                if (itemToUpdate) {
+                    itemToUpdate.user_take = data[0].user_take;
+                }
             }
-        }
         },
         async saveDescription(id: string, desc: string) {
             const { data } = await supabase
