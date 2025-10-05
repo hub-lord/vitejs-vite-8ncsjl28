@@ -30,7 +30,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <template v-if="true">
+  <template v-if="getAuth">
     <a-page-header style="border: 1px solid rgb(235, 237, 240)" title="CRM" :sub-title="getLogin" />
     <OrderList />
   </template>
