@@ -1,6 +1,9 @@
 <template>
     <a-table :dataSource="getItems" :columns="columns">
         <template #bodyCell="{ column, record }">
+            <template v-if="column.key === 'date'">
+                {{  str(record.date)  }}
+            </template>
             <template v-if="column.key === 'state'">
                 <a-tag :color="getStateColor(record.state)">
                     {{ record.state || 'unknown' }}
@@ -43,6 +46,9 @@ const value = ref('')
 let open = ref(false)
 let currentId = ref()
 let room = ref('')
+
+const str = (s:string) => new Date(s).toLocaleString('ru-RU', { timeZone: 'Asia/Novosibirsk' });
+
 function getStateColor(state: string | null) {
     switch (state) {
         case "open": return "green";
@@ -64,6 +70,11 @@ const columns = ref([
         title: 'Логин',
         dataIndex: 'login',
         key: 'login',
+    },
+    {
+        title: 'Дата',
+        dataIndex: 'date',
+        key: 'date',
     },
     {
         title: 'Текст',
