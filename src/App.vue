@@ -15,7 +15,7 @@ const chatId = ref('')
 onMounted(() => {
   const userData = miniApp.initDataUnsafe;
   console.log(userData.chat?.id);
-  localStorage.setItem("chat-id", userData.chat?.id?.toString())
+  localStorage.setItem("chat-id", userData.user?.id?.toString())
   chatId.value = userData.chat?.id?.toString() ?? 'test'
   setTimeout(() => {
     text.value = 'Нет доступа'
