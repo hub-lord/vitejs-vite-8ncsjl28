@@ -16,7 +16,7 @@ onMounted(() => {
   const userData = miniApp.initDataUnsafe;
   console.log(userData.chat?.id);
   localStorage.setItem("chat-id", userData.user?.id?.toString())
-  chatId.value = userData.chat?.id?.toString() ?? 'test'
+  chatId.value = userData.user?.id?.toString() ?? 'test'
   setTimeout(() => {
     text.value = 'Нет доступа'
     is401.value = true
