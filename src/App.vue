@@ -11,9 +11,12 @@ const { getLogin, getAuth } = storeToRefs(useMainStore())
 const miniApp = useMiniApp()
 const text = ref('load')
 const is401 = ref(false)
+const chatId = ref('')
 onMounted(() => {
   const userData = miniApp.initDataUnsafe;
-
+  console.log(userData.chat?.id);
+  localStorage.setItem("chat-id", userData.chat?.id?.toString())
+  chatId.value = userData.chat?.id?.toString() ?? 'test'
   setTimeout(() => {
     text.value = 'Нет доступа'
     is401.value = true
@@ -32,9 +35,11 @@ onMounted(() => {
 <template>
   <template v-if="getAuth">
     <a-page-header style="border: 1px solid rgb(235, 237, 240)" title="CRM" :sub-title="getLogin" />
+    {{ chatId }}
     <OrderList />
   </template>
   <template v-else>
+    {{ chatId }}
     <a-result v-if="is401" status="403" title="401" sub-title="Нет доступа">
     </a-result>
     <div style="display: flex; justify-content: center; align-items: center; align-content: center; height: 95vh;">
