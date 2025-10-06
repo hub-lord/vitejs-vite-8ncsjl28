@@ -35,11 +35,9 @@ onMounted(() => {
 <template>
   <template v-if="getAuth">
     <a-page-header style="border: 1px solid rgb(235, 237, 240)" title="CRM" :sub-title="getLogin" />
-    {{ chatId }}
     <OrderList />
   </template>
   <template v-else>
-    {{ chatId }}
     <a-result v-if="is401" status="403" title="401" sub-title="Нет доступа">
     </a-result>
     <div style="display: flex; justify-content: center; align-items: center; align-content: center; height: 95vh;">
