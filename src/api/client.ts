@@ -5,7 +5,7 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey, {
     global: {
       headers: {
-        'chat-id': localStorage.getItem("chat-id"), // в pre_request читаем как headers->>'x-chat-id'
+        'x-chat-id': localStorage.getItem("chat-id"), // в pre_request читаем как headers->>'x-chat-id'
       },
     },
   })
