@@ -67,11 +67,6 @@ const columns = ref([
         key: 'num_order',
     },
     {
-        title: 'Логин',
-        dataIndex: 'login',
-        key: 'login',
-    },
-    {
         title: 'Дата',
         dataIndex: 'date',
         key: 'date',
